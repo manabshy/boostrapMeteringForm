@@ -1,0 +1,93 @@
+
+/* Fonts */
+@font-face {
+  font-family: 'FuturaBT-Bold';
+  src: url('../fonts/FuturaBT-Bold.eot?#iefix') format('embedded-opentype'),  
+	url('../fonts/FuturaBT-Bold.woff') format('woff'), 
+	url('../fonts/FuturaBT-Bold.ttf')  format('truetype'), 
+	url('../fonts/FuturaBT-Bold.svg#FuturaBT-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FuturaBT-Medium';
+  src: url('../fonts/FuturaBT-Medium.eot?#iefix') format('embedded-opentype'),  
+  	url('../fonts/FuturaBT-Medium.woff') format('woff'), 
+  	url('../fonts/FuturaBT-Medium.ttf')  format('truetype'), 
+  	url('../fonts/FuturaBT-Medium.svg#FuturaBT-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*Futura Bold*/
+
+.headerDescription,
+.header .header-contact .contact-phone span,
+.header .header-contact .contact-call a,
+.banner .banner-holder h2,
+.banner-flash span,
+.cta-arrow,
+.cta-plain,
+h1 b, h1 strong,
+h2 b, h2 strong,
+h3 b, h3 strong,
+h4 b, h4 strong,
+.box-black-top.call .tel,
+.reasons-list .reason-wrap h4,
+.steps-holder .step .step-num,
+.steps-holder .step p a,
+.news-list .news-item-right h4,
+.footer .footer-main h5,
+.footer .footer-col ol li:before {font-family:'FuturaBT-Bold', Verdana, Helvetica, Arial, sans-serif;}
+/*Futura Medium*/
+h1, h2, h3, h4,legend,.header,
+.header .header-contact .contact-phone span.num,
+.header .header-contact .contact-call > span,
+.navbar,
+.footer .footer-nav {font-family:'FuturaBT-Medium', Verdana, Helvetica, Arial, sans-serif;}
+
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+legend.scheduler-border {
+    font-size: 1.7em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    color:#659EC8;
+
+}
+
+.alternate_meterAddress{
+	display:none;
+}
+
+.form-name h2{
+	color:#659EC8;
+}
+
+.meterChangeBlk,.meterInstallBlk{
+	display:none;
+}
+
+.row.div-bottom {
+	padding-bottom: 50px;
+}
+.container.global-border {
+	border: 1px groove #ddd;
+	margin-top: 15px;
+}
+.header{
+	font-size: 1.7em;
+}
+.headerDescription{
+	font-size: 1.5em;
+}
+
+.col-sm-12.text-center.btnblk {
+	padding-bottom: 12px;
+}

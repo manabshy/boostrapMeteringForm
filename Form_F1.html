@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Form F(1): Metering Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+  <link href="css/formf1.css" rel="stylesheet"/>
+  <link href="css/uutheme.css" rel="stylesheet"/>
+  <link href="css/signature_pad.css" rel="stylesheet"/>
+  <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="css/jquery-ui.min.css" rel="stylesheet"/>
+  <script src="js/library/jquery-1.11.1.min.js"></script>  
+  <script src="js/library/bootstrap.min.js"></script>
+  <script src="js/library/jquery-ui.min.js"></script>
+  <script src="js/library/jquery.validate.js"></script>
+  <script src="js/library/angular-1.2.0/angular.min.js"></script>
+
+  <!-- LOAD ANGULAR -->
+   <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>-->
+
+   <script>
+
+    // define angular module/app
+    var formApp = angular.module('formApp', []);
+
+    // create angular controller and pass in $scope and $http
+    function formController($scope, $http) {
+
+      // create a blank object to hold our form information
+      // $scope will allow this to pass between controller and view
+      $scope.formData = {};
+
+    }
+
+  </script>  
+ 
+</head>
+
+<body ng-app="formApp" ng-controller="formController">
+
+<div class="container global-border uuBackground">
+  <div class="row div-bottom">
+    <div class="col-sm-6 form-name text-left">
+      <h2>Form F(1): Metering Form</h2>
+      <span class="header">For use by Retailers</span> <br>
+      <span class="headerDescription">Request for Wholesaler to carry out metering work</span>  
+    </div>
+    <div class="col-sm-6 form-name text-left">
+      <img src="img/UUB_Logo_RGB_1-01.png" class="img-responsive uuLogo" alt="UU Logo"/>
+    </div>
+  </div>    
+<!-- Testing Navigation -->  
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>  
+<!-- Testing navigation ends -->
+  <form name="f1Form" role="form" id="f1Form" ng-submit="submitForm(f1Form.$valid)" novalidate>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <fieldset>
+            <legend class="scheduler-border">To Water Wholesaler:</legend>
+            <select id="wholesaler" class="form-control">
+              <option>United Utilities</option>
+              <option>Wholesaler 2</option>
+              <option>Wholesaler 3</option>
+            </select>
+          </fieldset>    
+        </div>
+
+      </div>
+      <div class="col-sm-6">  
+        <div class="form-group">
+          <fieldset>
+            <legend class="scheduler-border">Copy to Sewerage Wholesaler, if relevant:</legend>
+            <textarea class="form-control" rows="5" id="copy_wholesaler"></textarea> 
+          </fieldset>      
+        </div>
+      </div>  
+    </div>  
+       
+    <!--- Retailer details and Eligible premises details -->
+    <div class="row">
+      <div class="col-sm-6 ">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">1.Retailer details</legend>
+          <div class="form-group">
+              <label for="retailer">Retailer:</label>    
+              <input type="text"  class="form-control" id="retailer" placeholder="Retailer" value="United Utilities" readonly>                      
+          </div>   
+          <div class="form-group">
+              <label for="retailerId">Retailer Id:</label>  
+              <input type="text" class="form-control" id="retailerId" placeholder="Retailer Id"  value="RTL001" readonly>          
+          </div>  
+          <div class="form-group" ng-class="{ 'has-error' : f1Form.retailerReference.$invalid && !f1Form.retailerReference.$pristine }">
+              <label for="retailerRef">Retailer's own reference:</label>  
+              <input type="text" class="form-control" id="retailerRef" name="retailerReference" placeholder="Retailer reference" ng-model="formData.retailerReference" required/>   
+              <p ng-show="f1Form.retailerReference.$invalid && !f1Form.retailerReference.$pristine" class="help-block">Retailer Reference is required.</p>       
+
+          </div>    
+          <div class="form-group" ng-class="{ 'has-error' : f1Form.retailerContact.$invalid && !f1Form.retailerContact.$pristine}">
+              <span id="retailerNameInputValidation"></span><br/>
+              <label for="retailerContact">Contact name:</label>  
+              <input type="text" class="form-control" id="retailerContact" name="retailerContact" placeholder="Contact Name"ng-model="formData.retailerContact" required />   
+              <p ng-show="f1Form.retailerContact.$invalid && !f1Form.retailerContact.$pristine" class="help-block">Your Contact Name is required.</p>       
+
+          </div>  
+
+          <div class="form-group">
+              <span id="contactInputValidation"></span><br/>
+              <label for="retailerContactNumber">Contact number:</label>  
+              <input type="text" class="form-control" id="retailerContactNumber" name="retailerContactNumber" placeholder="Contact Number" ng-model="formData.retailerContactNumber"/>          
+          </div>    
+          <div class="form-group" ng-class="{ 'has-error' : f1Form.retailerEmail.$invalid && !f1Form.retailerEmail.$pristine }">
+              <label for="email">Contact email:</label>  
+              <input type="email" class="form-control" id="email" name="retailerEmail" placeholder="Email" ng-model="formData.retailerEmail"/>   
+              <p ng-show="f1Form.retailerEmail.$invalid && !f1Form.retailerEmail.$pristine" class="help-block">Enter a valid email.</p>
+
+          </div>   
+        </fieldset>
+      </div>
+      <div class="col-sm-6 ">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">2.Eligible premises details </legend>
+          <div class="form-group">
+              <label for="bannerName">Customer Banner Name:</label>    
+              <input type="text" class="form-control" id="bannerName" placeholder="Customer Name" value="Manchester City Council" readonly>                      
+          </div>   
+
+          <div class="form-group">
+              <label for="spidNo">SPID:</label>    
+              <select id="spidNo" class="form-control">
+                <option>UU-0000920499</option>
+                <option>SPID2</option>
+                <option>SPID3</option>
+                <option>SPID4</option>
+              </select>            </div>   
+          <div class="form-group">
+              <label for="uprn">UPRN:</label>  
+              <input type="text" class="form-control" id="uprn" placeholder="UPRN" value="77125704" readonly>          
+          </div>  
+          <div class="form-group">
+            <label for="address">Address of Eligible Premises to be visited:</label>
+            <textarea class="form-control" rows="3" id="address" value="100126 SALFORD ROAD,
+            BOLTON" readonly></textarea>       
+          </div>
+          <div class="form-group">
+              <label for="postcodePremises">Postcode:</label>    
+              <input type="text" class="form-control" id="postcodePremises" placeholder="Post Code" value="CM19 5SB" readonly>                      
+          </div>   
+          <hr>
+          <div class="form-group meterAddress text-left">
+            <p>Is the address of the meter at which the metering work is to be carried out the same as the
+            address provided above? </p>
+            <label class="radio-inline">
+              <input type="radio" name="changeAddress" value="Yes">Yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="changeAddress" value="No">No
+            </label>          
+              <div class="alternate_meterAddress">
+                <p>Ok,As you have selected No, so please provide details of the meter address below:</p>
+                <div class="form-group alternateAddress">
+                  <label for="addressEligiblePremises">Address of Eligible Premises to be visited:</label>
+                  <textarea class="form-control" rows="3" id="meterAddress" name="meterAddress"></textarea>       
+                </div>
+                <div class="form-group">
+                    <span id="postalCodeInputValidation"></span><br/>
+                    <label for="postcode">Postcode:</label>    
+                    <input type="text" class="form-control" id="meterpostcode" name="meterPostcode" placeholder="Post Code"/>                      
+                </div> 
+
+              </div>  
+          </div>          <div class="form-group sensitiveCustomer text-left">
+            <p>Is there a Sensitive Customer at this Eligible Premises?</p>
+            <label class="radio-inline">
+              <input type="radio" name="sradio" value="Yes">Yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="sradio" value="No">No
+            </label>          
+            
+          </div>  
+        </fieldset>
+      </div>
+    </div>  
+    <!--- Metering work to be carried out -->
+    <div class="row">
+      <div class="col-sm-12">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Metering Work </legend>  
+            <div class="form-group meterWork text-left">
+              <p>Please indicate the metering work to be carried out and complete the relevant section.</p>
+              <div class="radio">
+                <label><input type="radio" name="meterExTask" value="meterIns">Meter installation</label>
+              </div>
+              <div class="radio">  
+                <label class="radio-inline">
+                  <input type="radio" name="meterExTask" value="meterAcc">Meter accuracy test
+                </label>
+              </div>
+              <div class="radio">           
+                <label class="radio-inline">
+                  <input type="radio" name="meterExTask" value="meterRepair">Meter repair or replacement due to fault
+                </label>
+              </div>
+              <div class="radio">           
+                <label class="radio-inline">
+                  <input type="radio" name="meterExTask" value="meterChange">Change of meter
+                </label>          
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">     
+                  <div class="meterChangeBlk">
+                    <fieldset class="scheduler-border">
+                      <legend class="scheduler-border">Existing meter details </legend> 
+                      <div class="form-group meterChange text-left"> 
+                        <p>Please provide details of the existing meter</p>
+                        <div class="form-group">
+                            <label for="meterSerialNo">Meter serial number:</label>    
+                            <input type="text"  class="form-control" id="meterSerialNo" name="meterSerialNo" value="UU-0000556837" readonly/>                      
+                        </div>   
+                        <div class="form-group">
+                            <label for="meterModel">Meter Make:</label>    
+                            <input type="text"  class="form-control" id="meterModel" name="meterModel" value="KENT" readonly/>                      
+                        </div>   
+                        <div class="form-group">
+                            <label for="meterSize">Meter Size:</label>    
+                            <input type="text"  class="form-control" id="meterSize" name="meterSize" value="80mm" readonly/>                      
+                        </div>   
+                        <div class="form-group">
+                            <label for="meterXcoordinate">Meter easting (X Coordinate):</label>    
+                            <input type="text"  class="form-control" id="meterXcoordinate" name="meterXcoordinate" value="W002.155272" readonly/>                      
+                        </div>   
+                        <div class="form-group">
+                            <label for="meterYcoordinate">Meter northing (Y Coordinate):</label>    
+                            <input type="text"  class="form-control" id="meterYcoordinate" name="meterYcoordinate" value="N53.474595" readonly/>                      
+                        </div>   
+                        <div class="form-group">
+                            <label for="meterSerialAssociatedMeter">Where the meter has an associated combination, please provide the serial number of the associated meter:</label>    
+                            <input type="text"  class="form-control" id="meterSerialAssociatedMeter" name="meterSerialAssociatedMeter">
+                            <input type="hidden"  class="form-control" id="accountNumber" name="accountNumber">
+
+                        </div>
+                        <div class="form-group nonHouseholdCustomer">
+                            <label>Where a data logger has been installed by the Non-Household Customer or the Retailer, please
+                            confirm it has been or will be removed:</label>    
+                            <label class="radio-inline"><input type="radio" name="optradio" value="Yes">Yes</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" value="No">No</label>                        
+                        </div>  
+                      </div>  
+                    </fieldset>
+                  </div>
+              </div>  
+              <div class="col-sm-6">     
+                  <div class="meterChangeBlk">
+                    <fieldset class="scheduler-border">
+                      <legend class="scheduler-border">Change of meter</legend> 
+                      <div class="form-group meterChange text-left"> 
+                        <p>Please indicate the reason for the change of meter.</p>
+                        <!-- Meter size Accordions -->
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h5 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Same size</a>
+                              </h5>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                  <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">Meter installation </legend>                               
+                                    <div class="form-group meterInstall text-left"> 
+                                      <h4>Proposed meter details</h4>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                            <label for="sel1">Please select one:</label>
+                                            <select class="form-control" id="sameSizeMeter">
+                                              <option>15mm</option>
+                                              <option>20mm</option>
+                                              <option>25mm</option>
+                                              <option>30mm</option>
+                                              <option>50mm</option>        
+                                              <option>80mm</option>
+                                              <option>100-200mm</option>
+                                              <option>350mm</option>
+                                              <option>400mm</option>
+                                              <option>500mm</option>
+                                              <option>650mm</option>
+                                              <option>other</option>
+                                            </select>
+                                        </div>                                                                       
+                                      </div>
+                                      <br>
+
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <div class="form-group otherMeter">
+                                            <label> If other, please specify:</label>                        
+                                            <textarea class="form-control" rows="2" id="other_meter"></textarea> 
+                                            <label>Wholesaler's meter menu reference:</label>
+                                            <input type="text"  class="form-control" id="wholesalerMeterRef" name="wholesalerMeterRef" placeholder="Wholesaler's meter menu reference"/>
+                                          </div>                       
+                                        </div> 
+                                      </div>                                                                   
+                                    </div>  
+                                  </fieldset>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h5 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Downsize</a>
+                              </h5>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                  <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">Meter installation </legend> 
+                                    <div class="form-group meterInstall text-left"> 
+                                      <h4>Proposed meter details</h4>                  
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                            <label for="sel1">Please select one:</label>
+                                            <select class="form-control" id="downSizeMeter">
+                                              <option>Select one</option>
+                                            </select>
+                                        </div>                                                                       
+                                      </div>
+                                      <br>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <div class="form-group otherMeter">
+                                            <label> If other, please specify:</label>                        
+                                            <textarea class="form-control" rows="2" id="other_meter"></textarea> 
+                                            <label>Wholesaler's meter menu reference:</label>
+                                            <input type="text"  class="form-control" id="wholesalerMeterRef" name="wholesalerMeterRef" placeholder="Wholesaler's meter menu reference"/>
+                                          </div>                       
+                                        </div> 
+                                      </div>                                                                   
+                                    </div>  
+                                  </fieldset>
+                                  <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">Meter resize requests </legend> 
+                                    <div class="form-group meterInstall text-left"> 
+                                      <p>Please indicate if any additional information is supplied in support of the request.
+                                      </p>
+                                      <div class="row">
+                                        <div class="col-sm-6">
+                                          <div class="checkbox">
+                                            <label><input type="checkbox" name="logData"> Logging Data</label>
+                                          </div> 
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                              <label for="retailerRef">Reference:</label>
+                                              <input type="text" class="form-control" name="dataReference" placeholder="Reference">  
+                                          </div>                                          
+                                        </div>
+                                      </div>  
+                                      <div class="row">
+                                        <div class="col-sm-6">
+                                          <div class="checkbox">
+                                            <label><input type="checkbox" name="otherData"> Other Data</label>
+                                          </div> 
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                              <label for="retailerRef">Reference:</label>
+                                              <input type="text" class="form-control" name="otherDataRef" placeholder="Reference">  
+                                          </div> 
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm-12">                                           
+                                          <div class="form-group">
+                                              <label for="address">Additional information:</label>
+                                              <textarea class="form-control" rows="3" name="addionalInfo">
+                                              </textarea>
+                                          </div>                                                                            
+                                        </div>
+                                      </div>  
+                                    </div>  
+                                  </fieldset>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h5 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Upsize</a>
+                              </h5>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                  <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">Meter installation </legend> 
+                                    <div class="form-group meterInstall text-left"> 
+                                      <h4>Proposed meter details</h4>                                    
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                            <label for="selLargeSize">Please select one:</label>
+                                            <select class="form-control" id="largeSizeMeter">
+                                              <option>Select one</option>
+                                            </select>
+                                        </div>                                                                       
+                                      </div>
+                                      <br>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <div class="form-group otherMeter">
+                                            <label> If other, please specify:</label>                        
+                                            <textarea class="form-control" rows="2" id="other_meter"></textarea> 
+                                            <label>Wholesaler's meter menu reference:</label>
+                                            <input type="text"  class="form-control" id="wholesalerMeterRef" name="wholesalerMeterRef" placeholder="Wholesaler's meter menu reference"/>
+                                          </div>                       
+                                        </div> 
+                                      </div>                                                                   
+                                    </div>  
+                                  </fieldset>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                                 
+
+
+                        <div class="checkbox">
+                          <label><input type="checkbox" name="meterloc"/> Meter relocation</label>
+                        </div>
+                        <p>Please indicate here if you wish for a quotation to be provided prior to the meter exchange
+                        taking place; or for the work to take place without quotation/delay where standard circumstances
+                        apply:</p>                      
+                        <label class="radio-inline"><input type="radio" name="quotation-optradio" value="stnd"/>Standard</label>
+                        <label class="radio-inline"><input type="radio" name="quotation-optradio" value="nonstnd"/>Non Standard</label>
+                      </div>  
+                    </fieldset>
+                  </div>
+              </div>  
+
+            </div>      
+          </fieldset>
+      </div>
+    </div> 
+
+
+    <!-- Consent to contact the non-household customer -->
+    <div class="row">
+      <div class="col-sm-12 text-left">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Consent to contact the non-household customer </legend>  
+              <p>The Wholesaler may wish to contact the Non-Household Customer to arrange a visit to the
+              premises. Please indicate whether you give consent for the Wholesaler to contact the Non-
+              Household Customer directly to arrange a visit to the premises?</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="Yes">Yes
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="No">No
+                </label> 
+              </div>           
+            </div>  
+            <div class="col-sm-6">
+              <p>Where consent is being given to contact the Non-Household Customer, please provide contact
+              details below:</p>
+              <div class="form-group">
+                  <label for="NonContactName">Contact name:</label>  
+                  <input type="text" class="form-control" id="NonContactName" placeholder="Retailer">          
+              </div>    
+              <div class="form-group">
+                  <label for="NonContactNumber">Contact number:</label>  
+                  <input type="text" class="form-control" id="NonContactNumber" placeholder="Retailer">          
+              </div>                              
+            </div>  
+
+          </div>    
+        </fieldset>          
+      </div>  
+
+    </div>  
+    <!-- Declaration -->
+    <div class="row">
+      <div class="col-sm-12">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Declaration </legend>  
+          <p>I hereby acknowledge that the information provided in this form is correct to the best of my
+          knowledge and up to date at the date of submission</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                    <label for="signature">Signature:</label>  
+                    <div id="signature-pad" class="m-signature-pad" name="signature">            
+                        <div class="m-signature-pad--body">
+                          <canvas id="mSign" name="signcanvas"></canvas>
+                        </div>
+                        <div class="m-signature-pad--footer">
+                          <div class="description">Sign above</div>
+                          <button class="button clear" data-action="clear">Clear</button>
+                          <button class="button save" data-action="save">Save</button>
+                        </div>             
+                    </div>
+                    <label class="signerror"></label>     
+              </div>
+            </div>  
+            <div class="col-sm-6">
+              <div class="form-group">
+                    <label for="signature">Verify:</label>  
+                    <div id="signature-pad" class="m-signature-pad">            
+                        <div class="m-signature-verify">
+                          <img id="verifySign" src="" />
+                        </div>
+                        <div class="m-signature-pad--footer">
+                          <div class="description">Your signature</div>
+                        </div>             
+                    </div>     
+              </div>
+            </div>  
+
+          </div>  
+          <div class="row">      
+            <div class="col-sm-6">
+              <div class="form-group">
+                  <label for="date">Date (dd/mm/yyyy):</label>  
+                  <input type="text" class="form-control" id="date" name="signdate" placeholder="Date (dd/mm/yyyy)"
+                  ng-model="formData.signdate">
+              </div>             
+              <div class="form-group" ng-class="{ 'has-error' : f1Form.firstName.$invalid && !f1Form.firstName.$pristine }">
+                  <span id="firstNameInputValidation"></span><br>
+                  <label for="fullName">First name:</label>  
+                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                  ng-model="formData.firstName" required>   
+                  <p ng-show="f1Form.firstName.$invalid && !f1Form.firstName.$pristine" class="help-block">Your first name is required.</p>       
+              </div>             
+              <div class="form-group" ng-class="{ 'has-error' : f1Form.lastName.$invalid && !f1Form.lastName.$pristine }">
+                  <span id="lastNameInputValidation"></span><br>
+                  <label for="fullName">Last name:</label>  
+                  <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+                  ng-model="formData.lastName" required>          
+                  <p ng-show="f1Form.lastName.$invalid && !f1Form.lastName.$pristine" class="help-block">Your last name is required.</p>       
+              </div>             
+
+              <div class="form-group">
+                  <label for="jobtitle">Role in the company or job title</label>  
+                  <input type="text" class="form-control" id="jobtitle" name="jobtitle" placeholder="Job title"
+                  ng-model="formData.jobtitle">          
+              </div> 
+            </div>
+          </div>    
+        </fieldset>          
+      </div>  
+    </div>    
+
+    <div class="row">
+      <div class="col-sm-12 text-center btnblk">
+        <button type="submit" class="btn btn-success sendF1FormData" ng-disabled="f1Form.$invalid">Submit</button>  
+        <button type="reset" class="btn btn-success">Reset</button>
+        <div id="dialog" title="Success">
+          <p>Your form is submitted successfully.</p>
+        </div>              
+    </div>    
+  </form>
+  <!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
+  <pre>
+      {{ formData }}
+  </pre>
+
+</div>  
+  
+  <script src="js/library/signature_pad.min.js"></script>
+  <script src="js/f1Script.js"></script>
+  <script src="js/signature_app.js"></script>
+  <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
+</body>
+</html>
